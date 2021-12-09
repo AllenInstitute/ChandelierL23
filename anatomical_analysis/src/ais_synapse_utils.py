@@ -30,25 +30,23 @@ import ais_pipeline_scripting_tools as utils
 import tqdm.autonotebook as tqdm
 import pandas as pd
 import numpy as np
-from analysisdatalink.datalink_ext import AnalysisDataLinkExt as AnalysisDataLink
+# from analysisdatalink.datalink_ext import AnalysisDataLinkExt as AnalysisDataLink
 from meshparty import trimesh_io, skeleton_io
 from multiwrapper import multiprocessing_utils as mu
-from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=os.path.expanduser("~/.config/pinky100/.env"))
+mesh_cv_path =  "precomputed://gs://microns_public_datasets/pinky100_v185/seg"
+voxel_resolution = [3.58, 3.58, 40]
+voxel_scaling = [0.895, 0.895, 1]
 
-dataset_name_default = os.getenv("DATASET_NAME")
-sql_database_uri_base = os.getenv("MATERIALIZATION_DATABASE_URI_BASE")
-mesh_cv_path = os.getenv("GRAPHENE_SOURCE")
-soma_table = os.getenv("SOMA_TABLE")
-synapse_table_default = os.getenv("AUTOMATED_SYNAPSE_TABLE")
-voxel_resolution = np.array(os.getenv("VOXEL_RESOLUTION").split(",")).astype(float)
-voxel_scaling = np.array(os.getenv("VOXEL_SCALING").split(",")).astype(float)
-
+data_version = 185
+ais_table = 'ais_bounds_v3'
+soma_table = 'soma_valence_v2'
 data_filename_scheme = "/in/data_v{data_version}_{ais_table}_{chc_table}.h5"
 
 matrix_filename = base_dir + "/data/in/pinky_rotation.npy"
 
+synapse_table_default = 'pni_synapses_i3'
+dataset_name_default = 'pinky100'
 
 def load_rotation_matrix(filename=matrix_filename):
     Rtrans = np.load(matrix_filename)

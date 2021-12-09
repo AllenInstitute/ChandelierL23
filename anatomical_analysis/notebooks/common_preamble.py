@@ -80,29 +80,6 @@ ais_lens = np.unique(ais_synapse_data["ais_len"])
 min_ais_len = np.min(ais_lens[ais_lens > absolute_min_ais_len])
 print(f"Minimum AIS length: {min_ais_len}")
 
-
-# dl = AnalysisDataLink(dataset_name=dataset_name,
-#                       sqlalchemy_database_uri=sql_database_uri_base,
-#                       materialization_version=data_version,
-#                       verbose=False)
-
-# chc_df = dl.query_cell_ids(chc_table)
-# chc_ids = np.unique(chc_df[chc_df.func_id==1].pt_root_id)
-
-# ais_df = dl.query_cell_ids(ais_table)
-# complete_ais_ids = np.unique(ais_df.pt_root_id)
-
-# from ais_synapse_utils import aggregate_ais_dataframes
-# aggregated_ais_syn_df = aggregate_ais_dataframes(complete_ais_ids, ais_synapse_data).reset_index()
-
-# # Use for the moment... probably need to fix when we explicitly set ids to ignore.
-# from analyzable_soma_ids import oids_to_ignore
-# oids_ignore = oids_to_ignore(data_version)
-
-# ais_id_to_analyze = set(complete_ais_ids.astype(int)).difference(zero_syn_oids).difference(oids_failed).difference(oids_ignore)
-# complete_ais_ids = np.array(list(ais_id_to_analyze))
-# analyzable_soma_ids = np.array(list(set(complete_ais_ids).difference(oids_ignore)))
-
 from paper_styles import *
 
 set_rc_params(mpl)
